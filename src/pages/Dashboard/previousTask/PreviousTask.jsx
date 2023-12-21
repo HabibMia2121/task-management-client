@@ -1,6 +1,26 @@
+import { useQuery } from "@tanstack/react-query";
 import DashboardTitle from "../../../components/share/dashboardTitle/DashboardTitle";
+import useAxiosPublic from "../../../hook/useAxiosPublic";
+import { RiDeleteBin6Line } from "react-icons/ri";
 
 const PreviousTask = () => {
+    const axiosPublic = useAxiosPublic();
+
+    const { data: previousTask, isLoading, refetch } = useQuery({
+        queryKey: ['previousTask'],
+        queryFn: async () => {
+            const res = await axiosPublic.get('/previous-task');
+            return res?.data;
+        }
+    })
+
+    if (isLoading) {
+        return <div className=" grid justify-center items-center h-screen">
+            {/* <img src={loader} alt="not found" /> */}
+            <h2>Loading ..........</h2>
+        </div>
+    }
+    
     return (
         <div>
             {/* title section */}
@@ -21,89 +41,20 @@ const PreviousTask = () => {
                         </tr>
                     </thead>
                     <tbody className=" text-base">
-                        <tr>
-                            <th>1</th>
-                            <td>Cy Ganderton</td>
-                            <td>Quality Control Specialist</td>
-                            <td>Littel, Schaden and Vandervort</td>
-                            <td>Canada</td>
-                            <td>12/16/2020</td>
-                        </tr>
-                        <tr>
-                            <th>2</th>
-                            <td>Hart Hagerty</td>
-                            <td>Desktop Support Technician</td>
-                            <td>Zemlak, Daniel and Leannon</td>
-                            <td>United States</td>
-                            <td>12/5/2020</td>
-                        </tr>
-
-
-                        <tr>
-                            <th>1</th>
-                            <td>Cy Ganderton</td>
-                            <td>Quality Control Specialist</td>
-                            <td>Littel, Schaden and Vandervort</td>
-                            <td>Canada</td>
-                            <td>12/16/2020</td>
-                        </tr>
-                        <tr>
-                            <th>2</th>
-                            <td>Hart Hagerty</td>
-                            <td>Desktop Support Technician</td>
-                            <td>Zemlak, Daniel and Leannon</td>
-                            <td>United States</td>
-                            <td>12/5/2020</td>
-                        </tr>
-                        <tr>
-                            <th>1</th>
-                            <td>Cy Ganderton</td>
-                            <td>Quality Control Specialist</td>
-                            <td>Littel, Schaden and Vandervort</td>
-                            <td>Canada</td>
-                            <td>12/16/2020</td>
-                        </tr>
-                        <tr>
-                            <th>2</th>
-                            <td>Hart Hagerty</td>
-                            <td>Desktop Support Technician</td>
-                            <td>Zemlak, Daniel and Leannon</td>
-                            <td>United States</td>
-                            <td>12/5/2020</td>
-                        </tr>
-                        <tr>
-                            <th>1</th>
-                            <td>Cy Ganderton</td>
-                            <td>Quality Control Specialist</td>
-                            <td>Littel, Schaden and Vandervort</td>
-                            <td>Canada</td>
-                            <td>12/16/2020</td>
-                        </tr>
-                        <tr>
-                            <th>2</th>
-                            <td>Hart Hagerty</td>
-                            <td>Desktop Support Technician</td>
-                            <td>Zemlak, Daniel and Leannon</td>
-                            <td>United States</td>
-                            <td>12/5/2020</td>
-                        </tr>
-                        <tr>
-                            <th>1</th>
-                            <td>Cy Ganderton</td>
-                            <td>Quality Control Specialist</td>
-                            <td>Littel, Schaden and Vandervort</td>
-                            <td>Canada</td>
-                            <td>12/16/2020</td>
-                        </tr>
-                        <tr>
-                            <th>2</th>
-                            <td>Hart Hagerty</td>
-                            <td>Desktop Support Technician</td>
-                            <td>Zemlak, Daniel and Leannon</td>
-                            <td>United States</td>
-                            <td>12/5/2020</td>
-                        </tr>
-
+                        {
+                            previousTask?.map((task, idx) => <tr key={task._id}>
+                                <td>{ idx +1}</td>
+                                <td>{ task?.title }</td>
+                                <td>{task?.descriptions}</td>
+                                <td>{task?.deadlines}</td>
+                                <td>{task?.priority}</td>
+                                <td>
+                                    <button className=" py-2 px-3">
+                                        <RiDeleteBin6Line className=" text-2xl text-red-600"/>
+                                    </button>
+                                </td>
+                            </tr>)
+                        }
                     </tbody>
                 </table>
             </div>

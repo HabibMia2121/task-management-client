@@ -38,7 +38,6 @@ const SignUp = () => {
         // firebase create user
         createUser(email, password)
             .then(data => {
-                console.log(data);
                 updateUserProfile(name, imageData?.data?.display_url)
                     .then(() => {
                         const userData = {
@@ -53,7 +52,7 @@ const SignUp = () => {
                                         toast: true,
                                         position: "top-end",
                                         showConfirmButton: false,
-                                        timer: 3000,
+                                        timer: 2000,
                                         timerProgressBar: true,
                                         didOpen: (toast) => {
                                             toast.addEventListener(

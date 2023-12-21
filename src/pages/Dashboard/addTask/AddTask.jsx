@@ -2,6 +2,7 @@ import { useForm} from "react-hook-form"
 import DashboardTitle from "../../../components/share/dashboardTitle/DashboardTitle";
 import useAuth from "../../../hook/useAuth";
 import useAxiosPublic from "../../../hook/useAxiosPublic";
+import Swal from "sweetalert2";
 
 const AddTask = () => {
     const { user } = useAuth();
@@ -18,7 +19,26 @@ const AddTask = () => {
         }
         axiosPublic.post('/add-task', newTask)
             .then(res => {
-                console.log(res?.data);
+                if (res?.data?.insertedId) {
+                    reset();
+                    Swal.fire({
+                        title: "New task complately added!",
+                        showClass: {
+                            popup: `
+                            animate__animated
+                            animate__fadeInUp
+                            animate__faster
+                        `
+                        },
+                        hideClass: {
+                            popup: `
+                            animate__animated
+                            animate__fadeOutDown
+                            animate__faster
+                        `
+                        }
+                    });
+                }
             })
 
     }

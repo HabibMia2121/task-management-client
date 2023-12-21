@@ -8,6 +8,7 @@ import DashboardLayout from "../layout/DashboardLayout";
 import Dashboard from "../pages/Dashboard/Dashboard";
 import SignIn from "../pages/signIn/SignIn";
 import SignUp from "../pages/signUp/SignUp";
+import PrivateRoutes from "./privateRoutes/PrivateRoutes";
 
 const myCreateRouter = createBrowserRouter([
     {
@@ -35,19 +36,19 @@ const myCreateRouter = createBrowserRouter([
     // dashboard routes here
     {
         path: '/dashboard',
-        element: <DashboardLayout />,
+        element: <PrivateRoutes><DashboardLayout/></PrivateRoutes>,
         children: [
             {
                 path:'/dashboard/main',
-                element: <Dashboard/>
+                element: <PrivateRoutes><Dashboard/></PrivateRoutes>
             },
             {
                 path:'/dashboard/addTask',
-                element: <AddTask/>
+                element: <PrivateRoutes><AddTask/></PrivateRoutes>
             },
             {
                 path:'/dashboard/previousTask',
-                element: <PreviousTask/>
+                element: <PrivateRoutes><PreviousTask/></PrivateRoutes>
             },
         ]
     }

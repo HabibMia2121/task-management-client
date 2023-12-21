@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Container from "../../container/Container";
 import { useState } from "react";
 import { BiSolidHide, BiSolidShow } from "react-icons/bi";
@@ -14,6 +14,8 @@ const SignIn = () => {
     const [error, setError] = useState('')
     const navigate = useNavigate();
     const axiosPublic = useAxiosPublic();
+    const location = useLocation();
+    const from = location?.state?.from?.pathname || '/';
 
     const handleSignIn = e => {
         e.preventDefault();
@@ -30,7 +32,6 @@ const SignIn = () => {
         }
         signIn(email, password)
             .then(data => {
-                console.log(data);
                 const lastLoginAt = data.user?.metadata?.lastSignInTime;
                 const userInfo = {
                     email,
@@ -44,7 +45,7 @@ const SignIn = () => {
                                 toast: true,
                                 position: "top-end",
                                 showConfirmButton: false,
-                                timer: 3000,
+                                timer: 2000,
                                 timerProgressBar: true,
                                 didOpen: (toast) => {
                                     toast.addEventListener("mouseenter", Swal.stopTimer);
@@ -57,7 +58,7 @@ const SignIn = () => {
                             });
                             form.reset();
                             navigate('/');
-                            // navigate(from, { replace: true });
+                            navigate(from, { replace: true });
                         }
                     })
             })

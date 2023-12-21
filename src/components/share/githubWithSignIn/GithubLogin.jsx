@@ -12,36 +12,35 @@ const GithubLogin = () => {
     const handleGithub = () => {
         signInWithGithub()
             .then(result => {
-                console.log(result);
-                // const userInfo = {
-                //     name: result.user?.displayName,
-                //     email: result.user?.email
-                // }
-                // axiosPublic.post('user', userInfo)
-                //     .then(() => {
-                //         const Toast = Swal.mixin({
-                //             toast: true,
-                //             position: "top-end",
-                //             showConfirmButton: false,
-                //             timer: 3000,
-                //             timerProgressBar: true,
-                //             didOpen: (toast) => {
-                //                 toast.addEventListener(
-                //                     "mouseenter",
-                //                     Swal.stopTimer
-                //                 );
-                //                 toast.addEventListener(
-                //                     "mouseleave",
-                //                     Swal.resumeTimer
-                //                 );
-                //             },
-                //         });
-                //         Toast.fire({
-                //             icon: "success",
-                //             title: "Account create successfully",
-                //         });
-                //         navigate('/')
-                //     })
+                const userInfo = {
+                    name: result.user?.displayName,
+                    email: result.user?.email
+                }
+                axiosPublic.post('user', userInfo)
+                    .then(() => {
+                        const Toast = Swal.mixin({
+                            toast: true,
+                            position: "top-end",
+                            showConfirmButton: false,
+                            timer: 2000,
+                            timerProgressBar: true,
+                            didOpen: (toast) => {
+                                toast.addEventListener(
+                                    "mouseenter",
+                                    Swal.stopTimer
+                                );
+                                toast.addEventListener(
+                                    "mouseleave",
+                                    Swal.resumeTimer
+                                );
+                            },
+                        });
+                        Toast.fire({
+                            icon: "success",
+                            title: "Account create successfully",
+                        });
+                        navigate('/')
+                    })
             })
         
     }
