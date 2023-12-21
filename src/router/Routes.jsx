@@ -6,6 +6,8 @@ import AddTask from "../pages/Dashboard/addTask/AddTask";
 import PreviousTask from "../pages/Dashboard/previousTask/PreviousTask";
 import DashboardLayout from "../layout/DashboardLayout";
 import Dashboard from "../pages/Dashboard/Dashboard";
+import SignIn from "../pages/signIn/SignIn";
+import SignUp from "../pages/signUp/SignUp";
 
 const myCreateRouter = createBrowserRouter([
     {
@@ -19,6 +21,14 @@ const myCreateRouter = createBrowserRouter([
             {
                 path:'taskList',
                 element: <TaskList/>
+            },
+            {
+                path:'signIn',
+                element: <SignIn/>
+            },
+            {
+                path:'signUp',
+                element: <SignUp/>
             },
         ]
     },

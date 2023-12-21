@@ -1,4 +1,4 @@
-import {NavLink } from "react-router-dom";
+import {Link, NavLink } from "react-router-dom";
 import Container from "../../../container/Container";
 import logo from '../../../assets/logo/task-logo.png'
 import './Navbar.css'
@@ -7,7 +7,7 @@ const Navbar = () => {
     const navLink = <>
         <li><NavLink to='/' className=''>Home</NavLink></li>
         <li><NavLink to='/taskList'>Task List</NavLink></li>
-        <li><NavLink to='/dashboard/main'>Dashboard</NavLink></li>
+        <li><NavLink to='/dashboard'>Dashboard</NavLink></li>
     </>
     return (
         <div className=" bg-[#18212C]">
@@ -38,7 +38,8 @@ const Navbar = () => {
                     </div>
                     {/* navbar end */}
                     <div className="navbar-end">
-                        <button className=" py-2 px-3 bg-[#A9F5EB] hover:bg-[#94e3d8] rounded-lg text-[#18212C] font-fontRoboto font-bold">Sign In</button>
+                        <Link to='/signIn' className=" py-2 px-3 bg-[#D1FFF9] hover:bg-[#bff7ef] rounded-lg text-[#18212C] font-fontRoboto font-bold">Sign In</Link>
+                        {/* <button className=" py-2 px-3 bg-[#D1FFF9] hover:bg-[#bff7ef] rounded-lg text-[#18212C] font-fontRoboto font-bold">Logout</button> */}
                     </div>
                 </div>
             </Container>

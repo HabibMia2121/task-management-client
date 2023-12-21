@@ -1,10 +1,17 @@
+import Banner from "../../components/header/banner/Banner";
 import Container from "../../container/Container";
 
 const Home = () => {
     return (
-        <div className=" my-4">
+        <div>
+            {/* banner section here */}
+            <Banner />
+
+            {/* main part here */}
             <Container>
-                <h2>this is home page</h2>
+                <div className=" my-4">
+                    <h2>this is home page</h2>
+                </div>
             </Container>
         </div>
     );
