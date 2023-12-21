@@ -7,7 +7,7 @@ const Navbar = () => {
     const navLink = <>
         <li><NavLink to='/' className=''>Home</NavLink></li>
         <li><NavLink to='/taskList'>Task List</NavLink></li>
-        <li><NavLink to='/dashboard'>Dashboard</NavLink></li>
+        <li><NavLink to='/dashboard/main'>Dashboard</NavLink></li>
     </>
     return (
         <div className=" bg-[#18212C]">
