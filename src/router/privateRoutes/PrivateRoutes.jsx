@@ -1,5 +1,6 @@
 import { Navigate, useLocation } from "react-router-dom";
 import useAuth from "../../hook/useAuth";
+import { PropagateLoader } from "react-spinners";
 
 const PrivateRoutes = ({ children }) => {
     const { user, loading } = useAuth();
@@ -7,8 +8,7 @@ const PrivateRoutes = ({ children }) => {
 
     if (loading) {
         return <div className=" grid justify-center items-center h-screen">
-            {/* <img src={loader} alt="not found" /> */}
-            <h2>Loading ..........</h2>
+            <PropagateLoader color="#36d7b7" size={20} />
         </div>
     }
 

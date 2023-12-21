@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import DashboardTitle from "../../../components/share/dashboardTitle/DashboardTitle";
 import useAxiosPublic from "../../../hook/useAxiosPublic";
 import { RiDeleteBin6Line } from "react-icons/ri";
+import { PropagateLoader } from "react-spinners";
 
 const PreviousTask = () => {
     const axiosPublic = useAxiosPublic();
@@ -16,8 +17,7 @@ const PreviousTask = () => {
 
     if (isLoading) {
         return <div className=" grid justify-center items-center h-screen">
-            {/* <img src={loader} alt="not found" /> */}
-            <h2>Loading ..........</h2>
+            <PropagateLoader color="#36d7b7" size={20} />
         </div>
     }
     
