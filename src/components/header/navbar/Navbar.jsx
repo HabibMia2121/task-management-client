@@ -6,7 +6,7 @@ import './Navbar.css'
 const Navbar = () => {
     const navLink = <>
         <li><NavLink to='/' className=''>Home</NavLink></li>
-        <li><NavLink to='/addTask'>Add to task</NavLink></li>
+        <li><NavLink to='/taskList'>Task List</NavLink></li>
         <li><NavLink to='/dashboard'>Dashboard</NavLink></li>
     </>
     return (
@@ -38,7 +38,7 @@ const Navbar = () => {
                     </div>
                     {/* navbar end */}
                     <div className="navbar-end">
-                        <button className=" py-2 px-3 bg-[#D1FFF9] rounded-lg text-[#18212C] font-fontRoboto font-bold">Sign In</button>
+                        <button className=" py-2 px-3 bg-[#A9F5EB] hover:bg-[#94e3d8] rounded-lg text-[#18212C] font-fontRoboto font-bold">Sign In</button>
                     </div>
                 </div>
             </Container>
