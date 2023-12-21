@@ -2,7 +2,7 @@ import Container from "../../container/Container";
 
 const Home = () => {
     return (
-        <div>
+        <div className=" my-4">
             <Container>
                 <h2>this is home page</h2>
             </Container>
