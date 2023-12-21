@@ -1,11 +1,87 @@
-import { Link } from "react-router-dom";
+/* eslint-disable react-hooks/rules-of-hooks */
+import { Link, useNavigate } from "react-router-dom";
 import GoogleLogin from "../../components/share/googleWithSignIn/GoogleLogin";
 import { BiSolidHide, BiSolidShow } from "react-icons/bi";
 import { useState } from "react";
 import Container from "../../container/Container";
+import Swal from "sweetalert2";
+import useAxiosPublic from "../../hook/useAxiosPublic";
+import useAuth from "../../hook/useAuth";
+import useUploadImage from "../../hook/useUploadeImage";
+import GithubLogin from "../../components/share/githubWithSignIn/GithubLogin";
 
 const SignUp = () => {
+    const { createUser, updateUserProfile } = useAuth()
     const [passShowHide, setPassShowHide] = useState(false)
+    const navigate = useNavigate();
+    const axiosPublic = useAxiosPublic();
+    const [error, setError] = useState('')
+
+    const handleSignUp = async e => {
+        e.preventDefault();
+        const form = e.target;
+        const name = form.name.value;
+        const email = form.email.value;
+        const password = form.password.value;
+        const image = form.image.files[0];
+        // error message clean
+        setError("");
+
+        if (password.length < 6) {
+            setError("Password must be 6 characters!");
+            return;
+        }
+
+        // image upload in imgbb host server start
+        const imageData = await useUploadImage(image);
+
+        // firebase create user
+        createUser(email, password)
+            .then(data => {
+                console.log(data);
+                // updateUserProfile(name, imageData?.data?.display_url)
+                //     .then(() => {
+                //         const userData = {
+                //             name: data?.user?.displayName,
+                //             email: data?.user?.email,
+                //             image: imageData?.data?.display_url
+                //         }
+                //         axiosPublic.post('user', userData)
+                //             .then(res => {
+                //                 if (res?.data?.insertedId) {
+                //                     const Toast = Swal.mixin({
+                //                         toast: true,
+                //                         position: "top-end",
+                //                         showConfirmButton: false,
+                //                         timer: 3000,
+                //                         timerProgressBar: true,
+                //                         didOpen: (toast) => {
+                //                             toast.addEventListener(
+                //                                 "mouseenter",
+                //                                 Swal.stopTimer
+                //                             );
+                //                             toast.addEventListener(
+                //                                 "mouseleave",
+                //                                 Swal.resumeTimer
+                //                             );
+                //                         },
+                //                     });
+                //                     Toast.fire({
+                //                         icon: "success",
+                //                         title: "Account create successfully",
+                //                     });
+                //                     form.reset();
+                //                     navigate('/');
+                //                 }
+                //             })
+
+                //     })
+            })
+            .catch(err => setError(err));
+
+
+    }
+
     return (
         <div className=" mt-16 mb-4">
             <Container>
@@ -17,10 +93,10 @@ const SignUp = () => {
                                 Sign Up
                             </h1>
                             <div className=" px-8 ">
-                                {/* {error ? <p className=" text-red-500 py-4">{error}</p> : ""} */}
+                                {error ? <p className=" text-red-500 py-4">{error}</p> : ""}
                             </div>
-                            {/* onSubmit={handleSignUp}  */}
-                            <form className="card-body">
+                            
+                            <form onSubmit={handleSignUp} className="card-body">
                                 <div className="form-control">
                                     <label className="label">
                                         <span className="label-text text-lg font-poppins font-medium ">
@@ -84,7 +160,7 @@ const SignUp = () => {
                                             type='file'
                                             id='image'
                                             name='image'
-                                            accept='image/*'
+                                            accept='image*'
                                         />
                                     </div>
                                 </div>
@@ -105,8 +181,12 @@ const SignUp = () => {
                                 </p>
                             </div>
                             {/* google button */}
+                            <div className="text-center mt-4">
+                                <GoogleLogin />
+                            </div>
+                            {/* github button */}
                             <div className="text-center mt-4 mb-4">
-                                {/* <GoogleLogin /> */}
+                                <GithubLogin />
                             </div>
                         </div>
                     </div>

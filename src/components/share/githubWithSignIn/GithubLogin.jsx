@@ -1,16 +1,16 @@
-import { FcGoogle } from "react-icons/fc";
-import { useNavigate } from "react-router-dom";
-import Swal from "sweetalert2";
-import useAxiosPublic from "../../../hook/useAxiosPublic";
+import { FaGithub } from "react-icons/fa6";
 import useAuth from "../../../hook/useAuth";
+import useAxiosPublic from "../../../hook/useAxiosPublic";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
-const GoogleLogin = () => {
-    const { signInWithGoogle } = useAuth();
+const GithubLogin = () => {
+    const { signInWithGithub } = useAuth();
     const axiosPublic = useAxiosPublic();
     const navigate = useNavigate();
 
-    const handleGoogle = () => {
-        signInWithGoogle()
+    const handleGithub = () => {
+        signInWithGithub()
             .then(result => {
                 console.log(result);
                 // const userInfo = {
@@ -43,18 +43,20 @@ const GoogleLogin = () => {
                 //         navigate('/')
                 //     })
             })
+        
     }
+
     return (
         <>
             <button
-                onClick={handleGoogle}
+                onClick={handleGithub}
                 className="btn bg-inherit hover:bg-[#18212C] hover:text-white  outline-1  normal-case rounded-full w-64 border-gray-400 "
             >
-                <FcGoogle className=" text-3xl top-2 left-4 md:left-32 " />
-                Continue with Google
+                <FaGithub className=" text-3xl top-2 left-4 md:left-32 " />
+                Continue with Github
             </button>
         </>
     );
 };
 
-export default GoogleLogin;
+export default GithubLogin;

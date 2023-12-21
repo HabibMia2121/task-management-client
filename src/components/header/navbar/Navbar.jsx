@@ -2,13 +2,36 @@ import {Link, NavLink } from "react-router-dom";
 import Container from "../../../container/Container";
 import logo from '../../../assets/logo/task-logo.png'
 import './Navbar.css'
+import useAuth from "../../../hook/useAuth";
+import Swal from "sweetalert2";
 
 const Navbar = () => {
+    const { user, logOut } = useAuth();
     const navLink = <>
         <li><NavLink to='/' className=''>Home</NavLink></li>
         <li><NavLink to='/taskList'>Task List</NavLink></li>
-        <li><NavLink to='/dashboard'>Dashboard</NavLink></li>
+        <li><NavLink to='/dashboard/main'>Dashboard</NavLink></li>
     </>
+    const handleLogut = () => {
+        logOut()
+            .then(() => {
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: "top-end",
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.addEventListener("mouseenter", Swal.stopTimer);
+                        toast.addEventListener("mouseleave", Swal.resumeTimer);
+                    },
+                });
+                Toast.fire({
+                    icon: "success",
+                    title: "logout completed",
+                });
+            })
+    }
     return (
         <div className=" bg-[#18212C]">
             <Container>
@@ -38,8 +61,14 @@ const Navbar = () => {
                     </div>
                     {/* navbar end */}
                     <div className="navbar-end">
-                        <Link to='/signIn' className=" py-2 px-3 bg-[#D1FFF9] hover:bg-[#bff7ef] rounded-lg text-[#18212C] font-fontRoboto font-bold">Sign In</Link>
-                        {/* <button className=" py-2 px-3 bg-[#D1FFF9] hover:bg-[#bff7ef] rounded-lg text-[#18212C] font-fontRoboto font-bold">Logout</button> */}
+                        {
+                            user ? <>
+                                <button onClick={handleLogut} className=" py-2 px-3 bg-[#D1FFF9] hover:bg-[#bff7ef] rounded-lg text-[#18212C] font-fontRoboto font-bold">Logout</button>
+                            </> : <>
+                                <Link to='/signIn' className=" py-2 px-3 bg-[#D1FFF9] hover:bg-[#bff7ef] rounded-lg text-[#18212C] font-fontRoboto font-bold">Sign In</Link>
+                            </>
+                        }
+                        
                     </div>
                 </div>
             </Container>
