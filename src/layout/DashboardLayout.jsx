@@ -1,13 +1,13 @@
 import { FaBars, FaHome } from "react-icons/fa";
 import Container from "../container/Container";
-import { NavLink, Outlet} from "react-router-dom";
+import { NavLink, Outlet } from "react-router-dom";
 import { AiOutlineDashboard } from "react-icons/ai";
-// import DashboardMain from "../pages/Dashboard/DashboardMain";
 import { MdOutlineAddToPhotos } from "react-icons/md";
 import { VscPreview } from "react-icons/vsc";
+import useAuth from "../hook/useAuth";
 
 const DashboardLayout = () => {
-    // const location = useLocation();
+    const { user } = useAuth();
 
     return (
         <div className="drawer lg:drawer-open">
@@ -20,9 +20,6 @@ const DashboardLayout = () => {
                     </label>
                     <div className=" lg:mx-5 lg:my-6">
                         {/* outlet here */}
-                        {/* {
-                            (location?.pathname == '/dashboard') ? <DashboardMain /> : <Outlet />
-                        } */}
                         <Outlet />
                     </div>
 
@@ -32,6 +29,14 @@ const DashboardLayout = () => {
                 <label htmlFor="my-drawer-2" aria-label="close sidebar" className="drawer-overlay"></label>
                 <ul className="p-4 w-60 min-h-full bg-[#18212C] text-white font-semibold font-fontRoboto text-lg space-y-3">
                     {/* Sidebar content here */}
+                    {/* profile part */}
+                    <div className=" text-center space-y-3 mb-8 mt-3">
+                        <img src={user?.photoURL}
+                            className=" w-28 h-28 rounded-full inline-block" alt="not found" />
+                        <h2>{user?.displayName}</h2>
+                    </div>
+
+                    {/* menu part */}
                     <li><NavLink to='/dashboard/main' className={`flex items-center gap-2 $`}>
                         <AiOutlineDashboard className="text-2xl" />Dashboard
                     </NavLink></li>
@@ -43,7 +48,7 @@ const DashboardLayout = () => {
                         <VscPreview className="text-2xl" />
                         Previous task
                     </NavLink></li>
-
+                    <hr />
                     <li><NavLink to='/' className='flex items-center gap-2'>
                         <FaHome className="text-2xl" />
                         Home

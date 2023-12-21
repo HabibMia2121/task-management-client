@@ -31,35 +31,35 @@ const SignIn = () => {
         signIn(email, password)
             .then(data => {
                 console.log(data);
-                // const lastLoginAt = data.user?.metadata?.lastSignInTime;
-                // const userInfo = {
-                //     email,
-                //     password,
-                //     lastLoginAt,
-                // };
-                // axiosPublic.patch('user', userInfo)
-                //     .then(res => {
-                //         if (res.data.modifiedCount == 1) {
-                //             const Toast = Swal.mixin({
-                //                 toast: true,
-                //                 position: "top-end",
-                //                 showConfirmButton: false,
-                //                 timer: 3000,
-                //                 timerProgressBar: true,
-                //                 didOpen: (toast) => {
-                //                     toast.addEventListener("mouseenter", Swal.stopTimer);
-                //                     toast.addEventListener("mouseleave", Swal.resumeTimer);
-                //                 },
-                //             });
-                //             Toast.fire({
-                //                 icon: "success",
-                //                 title: "SignIn successfully",
-                //             });
-                //             form.reset();
-                //             navigate('/');
-                //             // navigate(from, { replace: true });
-                //         }
-                //     })
+                const lastLoginAt = data.user?.metadata?.lastSignInTime;
+                const userInfo = {
+                    email,
+                    password,
+                    lastLoginAt,
+                };
+                axiosPublic.patch('/user', userInfo)
+                    .then(res => {
+                        if (res.data.modifiedCount == 1) {
+                            const Toast = Swal.mixin({
+                                toast: true,
+                                position: "top-end",
+                                showConfirmButton: false,
+                                timer: 3000,
+                                timerProgressBar: true,
+                                didOpen: (toast) => {
+                                    toast.addEventListener("mouseenter", Swal.stopTimer);
+                                    toast.addEventListener("mouseleave", Swal.resumeTimer);
+                                },
+                            });
+                            Toast.fire({
+                                icon: "success",
+                                title: "SignIn successfully",
+                            });
+                            form.reset();
+                            navigate('/');
+                            // navigate(from, { replace: true });
+                        }
+                    })
             })
             .catch(error => setError(error.message));
     }

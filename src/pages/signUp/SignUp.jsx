@@ -39,43 +39,43 @@ const SignUp = () => {
         createUser(email, password)
             .then(data => {
                 console.log(data);
-                // updateUserProfile(name, imageData?.data?.display_url)
-                //     .then(() => {
-                //         const userData = {
-                //             name: data?.user?.displayName,
-                //             email: data?.user?.email,
-                //             image: imageData?.data?.display_url
-                //         }
-                //         axiosPublic.post('user', userData)
-                //             .then(res => {
-                //                 if (res?.data?.insertedId) {
-                //                     const Toast = Swal.mixin({
-                //                         toast: true,
-                //                         position: "top-end",
-                //                         showConfirmButton: false,
-                //                         timer: 3000,
-                //                         timerProgressBar: true,
-                //                         didOpen: (toast) => {
-                //                             toast.addEventListener(
-                //                                 "mouseenter",
-                //                                 Swal.stopTimer
-                //                             );
-                //                             toast.addEventListener(
-                //                                 "mouseleave",
-                //                                 Swal.resumeTimer
-                //                             );
-                //                         },
-                //                     });
-                //                     Toast.fire({
-                //                         icon: "success",
-                //                         title: "Account create successfully",
-                //                     });
-                //                     form.reset();
-                //                     navigate('/');
-                //                 }
-                //             })
+                updateUserProfile(name, imageData?.data?.display_url)
+                    .then(() => {
+                        const userData = {
+                            name: data?.user?.displayName,
+                            email: data?.user?.email,
+                            image: imageData?.data?.display_url
+                        }
+                        axiosPublic.post('/user', userData)
+                            .then(res => {
+                                if (res?.data?.insertedId) {
+                                    const Toast = Swal.mixin({
+                                        toast: true,
+                                        position: "top-end",
+                                        showConfirmButton: false,
+                                        timer: 3000,
+                                        timerProgressBar: true,
+                                        didOpen: (toast) => {
+                                            toast.addEventListener(
+                                                "mouseenter",
+                                                Swal.stopTimer
+                                            );
+                                            toast.addEventListener(
+                                                "mouseleave",
+                                                Swal.resumeTimer
+                                            );
+                                        },
+                                    });
+                                    Toast.fire({
+                                        icon: "success",
+                                        title: "Account create successfully",
+                                    });
+                                    form.reset();
+                                    navigate('/');
+                                }
+                            })
 
-                //     })
+                    })
             })
             .catch(err => setError(err));
 
