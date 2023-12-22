@@ -22,7 +22,7 @@ const AddTask = () => {
                 if (res?.data?.insertedId) {
                     reset();
                     Swal.fire({
-                        title: "New task complately added!",
+                        title: "New task completely added!",
                         showClass: {
                             popup: `
                             animate__animated

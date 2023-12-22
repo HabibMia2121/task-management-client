@@ -3,17 +3,47 @@ import DashboardTitle from "../../../components/share/dashboardTitle/DashboardTi
 import useAxiosPublic from "../../../hook/useAxiosPublic";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { PropagateLoader } from "react-spinners";
+import useAuth from "../../../hook/useAuth";
+import Swal from "sweetalert2";
 
 const PreviousTask = () => {
     const axiosPublic = useAxiosPublic();
+    const { user } = useAuth();
 
     const { data: previousTask, isLoading, refetch } = useQuery({
         queryKey: ['previousTask'],
+        enabled: !'isLoading' || !!user?.email,
         queryFn: async () => {
-            const res = await axiosPublic.get('/previous-task');
+            const res = await axiosPublic.get(`/previous-task/${user?.email}`);
             return res?.data;
         }
+
     })
+
+    // delete task 
+    const handleDelete = id => {
+        axiosPublic.delete(`/task-delete/${id}`)
+            .then(res => {
+                refetch();
+                if (res?.data?.acknowledged) {
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: "top-end",
+                        showConfirmButton: false,
+                        timer: 2000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                            toast.addEventListener("mouseenter", Swal.stopTimer);
+                            toast.addEventListener("mouseleave", Swal.resumeTimer);
+                        },
+                    });
+                    Toast.fire({
+                        icon: "success",
+                        title: "Task deleted completed!",
+                    })
+                }
+            })
+    }
 
     if (isLoading) {
         return <div className=" grid justify-center items-center h-screen">
@@ -49,7 +79,7 @@ const PreviousTask = () => {
                                 <td>{task?.deadlines}</td>
                                 <td>{task?.priority}</td>
                                 <td>
-                                    <button className=" py-2 px-3">
+                                    <button onClick={() => handleDelete(task._id)} className=" py-2 px-3">
                                         <RiDeleteBin6Line className=" text-2xl text-red-600"/>
                                     </button>
                                 </td>
