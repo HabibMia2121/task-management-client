@@ -5,6 +5,7 @@ import { AiOutlineDashboard } from "react-icons/ai";
 import { MdOutlineAddToPhotos } from "react-icons/md";
 import { VscPreview } from "react-icons/vsc";
 import useAuth from "../hook/useAuth";
+import { FaTasks } from "react-icons/fa";
 
 const DashboardLayout = () => {
     const { user } = useAuth();
@@ -43,6 +44,10 @@ const DashboardLayout = () => {
                     <li><NavLink to='/dashboard/addTask' className='flex items-center gap-2'>
                         <MdOutlineAddToPhotos className="text-2xl" />
                         Add New Task
+                    </NavLink></li>
+                    <li><NavLink to='/dashboard/task' className='flex items-center gap-2'>
+                        <FaTasks className="text-2xl" />
+                        Task
                     </NavLink></li>
                     <li><NavLink to='/dashboard/previousTask' className='flex items-center gap-2'>
                         <VscPreview className="text-2xl" />

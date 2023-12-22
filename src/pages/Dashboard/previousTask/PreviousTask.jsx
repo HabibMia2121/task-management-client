@@ -19,7 +19,6 @@ const PreviousTask = () => {
         }
 
     })
-
     // delete task 
     const handleDelete = id => {
         axiosPublic.delete(`/task-delete/${id}`)
@@ -50,7 +49,7 @@ const PreviousTask = () => {
             <PropagateLoader color="#36d7b7" size={20} />
         </div>
     }
-    
+
     return (
         <div>
             {/* title section */}
@@ -61,7 +60,7 @@ const PreviousTask = () => {
             <div className="overflow-x-auto overflow-y-scroll h-[300px] lg:h-[400px]   mt-4 mx-12 bg-[#e5e5e5] p-10 rounded">
                 <table className="table table-zebra">
                     <thead className=" text-base text-black font-fontRoboto font-semibold">
-                        <tr> 
+                        <tr>
                             <th>No</th>
                             <th>Title</th>
                             <th>Description</th>
@@ -73,14 +72,14 @@ const PreviousTask = () => {
                     <tbody className=" text-base">
                         {
                             previousTask?.map((task, idx) => <tr key={task._id}>
-                                <td>{ idx +1}</td>
-                                <td>{ task?.title }</td>
+                                <td>{idx + 1}</td>
+                                <td>{task?.title}</td>
                                 <td>{task?.descriptions}</td>
                                 <td>{task?.deadlines}</td>
                                 <td>{task?.priority}</td>
                                 <td>
                                     <button onClick={() => handleDelete(task._id)} className=" py-2 px-3">
-                                        <RiDeleteBin6Line className=" text-2xl text-red-600"/>
+                                        <RiDeleteBin6Line className=" text-2xl text-red-600" />
                                     </button>
                                 </td>
                             </tr>)

@@ -1,45 +1,57 @@
-import { useForm} from "react-hook-form"
-import DashboardTitle from "../../../components/share/dashboardTitle/DashboardTitle";
-import useAuth from "../../../hook/useAuth";
+import { useParams } from "react-router-dom";
 import useAxiosPublic from "../../../hook/useAxiosPublic";
+import { useQuery } from "@tanstack/react-query";
+import { PropagateLoader } from "react-spinners";
+import DashboardTitle from "../../../components/share/dashboardTitle/DashboardTitle";
+import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 
-const AddTask = () => {
-    const { user } = useAuth();
-    const { register, handleSubmit, reset } = useForm()
+const TodoTaskEdit = () => {
+    const { id } = useParams();
     const axiosPublic = useAxiosPublic();
 
-    const onSubmit = (data) => {
-        const newTask = {
-            title: data?.title,
-            descriptions: data?.descriptions,
-            priority: data?.priority,
-            deadlines: data?.deadlines,
-            email: user?.email
+    const { data: todo, isLoading, refetch } = useQuery({
+        queryKey: ['todo'],
+        queryFn: async () => {
+            const res = await axiosPublic.get(`/todo/${id}`);
+            return res?.data;
         }
-        axiosPublic.post('/add-task', newTask)
+    })
+
+    // todo task update here
+    const {
+        register,
+        // formState: { errors },
+        handleSubmit,
+    } = useForm()
+    const onSubmit = (data) => {
+        axiosPublic.patch(`/todo-update/${id}`, data)
             .then(res => {
-                if (res?.data?.insertedId) {
-                    reset();
+                refetch();
+                if(res?.data?.modifiedCount > 0){
                     Swal.fire({
                         position: "top-center",
                         icon: "success",
-                        title: "New task completely added!",
+                        title: "Todo task successfully updated!",
                         showConfirmButton: false,
                         timer: 1500
                     });
                 }
             })
-
     }
 
+    if (isLoading) {
+        return <div className=" grid justify-center items-center h-screen">
+            <PropagateLoader color="#36d7b7" size={20} />
+        </div>
+    }
     return (
         <div>
             {/* title section */}
             <DashboardTitle
-                title={'Add the new task'}
+                title={'Update todo task'}
             />
-            
+
             {/* from section here */}
             <div className=" mt-4 mx-12 bg-[#e5e5e5] p-10 rounded">
                 
@@ -52,6 +64,7 @@ const AddTask = () => {
                         <input
                             {...register("title", { required: true })}
                             type="text"
+                            defaultValue={todo?.title}
                             required
                             placeholder="task title" className="input input-bordered w-full " />
                     </div>
@@ -64,7 +77,9 @@ const AddTask = () => {
                             </label>
                             <textarea
                                 {...register("descriptions", { required: true })}
-                                placeholder="descriptions" className="textarea textarea-bordered w-full " 
+                                placeholder="descriptions"
+                                defaultValue={todo?.descriptions}
+                                className="textarea textarea-bordered w-full "
                             ></textarea>
                         </div>
                     </div>
@@ -77,6 +92,7 @@ const AddTask = () => {
                             <input
                                 {...register("priority", { required: true })}
                                 type="text"
+                                defaultValue={todo?.priority}
                                 required
                                 placeholder="Low, moderate, high" className="input input-bordered w-full " />
                         </div>
@@ -88,20 +104,21 @@ const AddTask = () => {
                             <input
                                 {...register("deadlines", { required: true })}
                                 type="date"
+                                defaultValue={todo?.deadlines}
                                 required
                                 placeholder="task deadlines" className="input input-bordered w-full " />
                         </div>
                     </div>
-                    
+
                     <div className="text-center">
                         <button className="btn gap-2 bg-gradient-to-r from-[#18212C] to-[#236f7e] text-white">
-                            Add Task
+                            Update
                         </button>
-                   </div>
+                    </div>
                 </form>
             </div>
         </div>
     );
 };
 
-export default AddTask;
+export default TodoTaskEdit;

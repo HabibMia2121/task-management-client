@@ -8,6 +8,8 @@ import Dashboard from "../pages/Dashboard/Dashboard";
 import SignIn from "../pages/signIn/SignIn";
 import SignUp from "../pages/signUp/SignUp";
 import PrivateRoutes from "./privateRoutes/PrivateRoutes";
+import Task from "../pages/Dashboard/to-doTask/Task";
+import TodoTaskEdit from "../pages/Dashboard/to-doTask/todoTaskEdit";
 
 const myCreateRouter = createBrowserRouter([
     {
@@ -40,6 +42,14 @@ const myCreateRouter = createBrowserRouter([
             {
                 path:'/dashboard/addTask',
                 element: <PrivateRoutes><AddTask/></PrivateRoutes>
+            },
+            {
+                path:'/dashboard/task',
+                element: <PrivateRoutes><Task/></PrivateRoutes>
+            },
+            {
+                path:'/dashboard/todo/:id',
+                element: <PrivateRoutes><TodoTaskEdit/></PrivateRoutes>
             },
             {
                 path:'/dashboard/previousTask',

@@ -10,7 +10,7 @@ const Banner = () => {
         });
     },[])
     return (
-        <div id='home' className="hero h-[450px] bannerImage " >
+        <div id='home' className="hero h-[500px] bannerImage " >
             <div className="hero-overlay"></div>
             <div className="hero-content text-center text-neutral-content">
                 <div className="max-w-md">
