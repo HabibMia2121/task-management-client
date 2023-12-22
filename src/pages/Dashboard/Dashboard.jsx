@@ -6,15 +6,26 @@ import { MdIncompleteCircle } from "react-icons/md";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosPublic from "../../hook/useAxiosPublic";
 import { PropagateLoader } from "react-spinners";
+import useAuth from "../../hook/useAuth";
+import AOS from 'aos';
+import { useEffect } from "react";
 
 
 const Dashboard = () => {
     const axiosPublic = useAxiosPublic();
+    const { user } = useAuth();
+    useEffect(() => {
+        AOS.init({
+            duration: 1000
+        });
+    }, [])
+
     // get total previous task
     const { data: previousTotalTask, isLoading } = useQuery({
         queryKey: ['previousTotalTask'],
+        enabled: !'isLoading' || !!user?.email,
         queryFn: async () => {
-            const res = await axiosPublic.get('/previous-total-task');
+            const res = await axiosPublic.get(`/previous-task/${user?.email}`);
             return res?.data;
         }
 
@@ -36,7 +47,9 @@ const Dashboard = () => {
     return (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 pt-5">
             {/* previous task */}
-            <div className=" bg-lime-600 p-4 rounded-xl">
+            <div className=" bg-lime-600 p-4 rounded-xl" data-aos="fade-down"
+                data-aos-easing="linear"
+                data-aos-duration="1000">
                 <div className=" flex justify-between items-center">
                     <div className=" flex gap-2 items-center">
                         <MdOutlinePreview className="text-white text-2xl"/>
@@ -46,7 +59,9 @@ const Dashboard = () => {
                 </div>
             </div>
             {/* Total user */}
-            <div className=" bg-violet-600 p-4 rounded-xl">
+            <div className=" bg-violet-600 p-4 rounded-xl" data-aos="fade-down"
+                data-aos-easing="linear"
+                data-aos-duration="1500">
                 <div className=" flex justify-between items-center">
                     <div className=" flex gap-2 items-center">
                         <FaUsers className="text-white text-2xl"/>
@@ -56,7 +71,9 @@ const Dashboard = () => {
                 </div>
             </div>
             {/* to-do */}
-            <div className=" bg-red-600 p-4 rounded-xl">
+            <div className=" bg-red-600 p-4 rounded-xl" data-aos="fade-down"
+                data-aos-easing="linear"
+                data-aos-duration="2000">
                 <div className=" flex justify-between items-center">
                     <div className=" flex gap-2 items-center">
                         <LuListTodo className="text-white text-2xl"/>
@@ -66,7 +83,9 @@ const Dashboard = () => {
                 </div>
             </div>
             {/* ongoing */}
-            <div className=" bg-sky-600 p-4 rounded-xl">
+            <div className=" bg-sky-600 p-4 rounded-xl" data-aos="fade-down"
+                data-aos-easing="linear"
+                data-aos-duration="2500">
                 <div className=" flex justify-between items-center">
                     <div className=" flex gap-2 items-center">
                         <GoIssueReopened className="text-white text-2xl"/>
@@ -76,7 +95,9 @@ const Dashboard = () => {
                 </div>
             </div>
             {/* completed */}
-            <div className=" bg-amber-600 p-4 rounded-xl">
+            <div className=" bg-amber-600 p-4 rounded-xl" data-aos="fade-down"
+                data-aos-easing="linear"
+                data-aos-duration="3000">
                 <div className=" flex justify-between items-center">
                     <div className=" flex gap-2 items-center">
                         <MdIncompleteCircle className="text-white text-2xl"/>
