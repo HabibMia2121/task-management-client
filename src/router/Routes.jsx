@@ -1,7 +1,6 @@
 import {createBrowserRouter} from "react-router-dom";
 import Root from "../layout/Root";
 import Home from "../pages/home/Home";
-import TaskList from "../pages/taskList/TaskList";
 import AddTask from "../pages/Dashboard/addTask/AddTask";
 import PreviousTask from "../pages/Dashboard/previousTask/PreviousTask";
 import DashboardLayout from "../layout/DashboardLayout";
@@ -18,10 +17,6 @@ const myCreateRouter = createBrowserRouter([
             {
                 index: true,
                 element: <Home/>
-            },
-            {
-                path:'taskList',
-                element: <TaskList/>
             },
             {
                 path:'signIn',

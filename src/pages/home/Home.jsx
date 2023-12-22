@@ -1,3 +1,4 @@
+import WhoBenefit from "../../components/whoBenefit/WhoBenefit";
 import Container from "../../container/Container";
 
 const Home = () => {
@@ -6,7 +7,8 @@ const Home = () => {
             {/* main part here */}
             <Container>
                 <div>
-                    <h2>this is home page</h2>
+                    {/* Who Benefit section here */}
+                    <WhoBenefit/>
                 </div>
             </Container>
         </div>
