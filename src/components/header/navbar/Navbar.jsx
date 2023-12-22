@@ -4,12 +4,17 @@ import logo from '../../../assets/logo/task-logo.png'
 import './Navbar.css'
 import useAuth from "../../../hook/useAuth";
 import Swal from "sweetalert2";
+import AnchorLink from 'react-anchor-link-smooth-scroll'
 
 const Navbar = () => {
     const { user, logOut } = useAuth();
     const navLink = <>
-        <li><NavLink to='/' className=''>Home</NavLink></li>
-        <li><NavLink to='/whoBenefit'>Who Benefit</NavLink></li>
+        <li>
+            <NavLink href='#home' to='/'>Home</NavLink>
+        </li>
+        <li>
+            <AnchorLink href='#whoBenefit' >Who Benefit</AnchorLink>
+        </li>
         <li><NavLink to='/dashboard/main'>Dashboard</NavLink></li>
     </>
     const handleLogut = () => {
